@@ -7,6 +7,10 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static(path.join(__dirname, 'dist')))
 
+app.get('/version', (_req, res) => {
+  res.send('1')
+})
+
 app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
