@@ -11,6 +11,12 @@ app.get('/version', (_req, res) => {
   res.send('1')
 })
 
+app.get('/health', (_req, res) => {
+  // eslint-disable-next-line
+  if (true) throw new Error('Artificial error')
+  res.send('ok')
+})
+
 app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
