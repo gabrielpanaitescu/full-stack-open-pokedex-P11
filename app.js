@@ -13,7 +13,6 @@ app.get('/version', (_req, res) => {
 
 app.get('/health', (_req, res) => {
   // eslint-disable-next-line
-  if (true) throw new Error('Artificial error')
   res.send('ok')
 })
 
