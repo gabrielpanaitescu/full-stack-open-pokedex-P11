@@ -51,7 +51,7 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: deploy to fly.io
         if: ${{ github.event_name == 'push' && needs.set_env_in_job_output.outputs.skip == 'false' }}
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --depot=false
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   tag_release:
