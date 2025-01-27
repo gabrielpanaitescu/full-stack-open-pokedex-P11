@@ -50,7 +50,7 @@ jobs:
           retention-days: 30
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: deploy to fly.io
-        if: ${{ github.event_name == 'push' && needs.set_env_in_job_output.outputs.skip == 'false' }} # can also use env directly instead of needs due to this running at step lvl and not job lvl
+        if: ${{ github.event_name == 'push' && needs.set_env_in_job_output.outputs.skip == 'false' }} # can also use env directly instead of needs due to this running at step level and not job level
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
