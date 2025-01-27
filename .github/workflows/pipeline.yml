@@ -8,8 +8,21 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+env:
+  COMMIT_MSG_CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
+
 jobs:
+  set_env_in_job_output:
+    runs-on: ubuntu-20.04
+    outputs: 
+      skip: ${{ steps.init.outputs.skip }}
+    steps:
+      - name: Extract env variable and set it in job output
+        id: init
+        run: |
+          echo "skip=${{ env.COMMIT_MSG_CONTAINS_SKIP }} >> $GITHUB_OUTPUT"
   simple_deployment_pipeline:
+    needs: [set_env_in_job_output]
     runs-on: ubuntu-20.04
     concurrency: deploy-group
     steps:
@@ -38,12 +51,14 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: deploy to fly.io
         if: ${{ github.event_name == 'push' }}
+        if: ${{ needs.set_env_in_job_output.outputs.skip == 'false' }} # can also use env directly due to this running at step lvl and not job lvl
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   tag_release:
-    needs: [simple_deployment_pipeline]
+    needs: [simple_deployment_pipeline, set_env_in_job_output]
     runs-on: ubuntu-20.04
+    if: ${{ needs.set_env_in_job_output.outputs.skip == 'false' }}
     steps:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
