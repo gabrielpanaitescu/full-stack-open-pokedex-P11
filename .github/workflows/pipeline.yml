@@ -20,7 +20,7 @@ jobs:
       - name: Extract env variable and set it in job output
         id: init
         run: |
-          echo "skip=${{ env.COMMIT_MSG_CONTAINS_SKIP }} >> $GITHUB_OUTPUT"
+          echo "skip=${{ env.COMMIT_MSG_CONTAINS_SKIP }}" >> $GITHUB_OUTPUT
   simple_deployment_pipeline:
     needs: [set_env_in_job_output]
     runs-on: ubuntu-20.04
