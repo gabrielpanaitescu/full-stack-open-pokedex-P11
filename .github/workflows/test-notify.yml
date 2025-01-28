@@ -19,16 +19,18 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: echo "$COMMIT_SHA"
       - name: The job succeeded
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
         if: ${{ success() }}
         with:
-          severity: info
-          details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: 'A new version of Pokedex deployed'
+          description: |
+            by `${{ github.actor }}`
+            Click [here](https://full-stack-open-pokedex-p11.fly.dev) to visit the deployed app!
       - name: The job failed
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
         if: ${{ failure() }}
         with:
-          severity: error
-          details: Test Failed!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
