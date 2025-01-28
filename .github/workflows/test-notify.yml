@@ -3,9 +3,9 @@ name: Test Notifications
 on:
   push:
     branches:
-      - test
+      - test-notify
   pull_request:
-    branches: [test]
+    branches: [test-notify]
     types: [opened, synchronize]
 
 jobs:
