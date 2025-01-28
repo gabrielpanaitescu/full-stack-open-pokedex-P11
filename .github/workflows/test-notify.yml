@@ -26,7 +26,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
           content: 'A new version of Pokedex deployed'
-          title: ${{ job.status }}
+          status: ${{ job.status }}
           description: |
             by `${{ github.actor }}`
             Click [here](https://full-stack-open-pokedex-p11.fly.dev) to visit the deployed app!
