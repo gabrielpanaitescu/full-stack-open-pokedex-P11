@@ -76,6 +76,9 @@ jobs:
           title: 'deployment pipeline'
           description: 'commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build'
           username: GitHub Actions
+      - name: Health Check
+        uses: jtalk/url-health-check-action@b716ccb6645355dd9fcce8002ce460e5474f7f00
+        url: https://full-stack-open-pokedex-p11.fly.dev
 
   tag_release:
     needs: [simple_deployment_pipeline, set_env_in_job_output]
