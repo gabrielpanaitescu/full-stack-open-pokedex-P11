@@ -1,0 +1,24 @@
+name: Test Notifications
+
+on:
+  push:
+    branches:
+      - test
+  pull_request:
+    branches: [test]
+    types: [opened, synchronize]
+
+jobs:
+  notify:
+    runs-on: ubuntu_20.04
+    steps:
+      - name: The job succeeded
+        if: ${{ success() }}
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: echo "$COMMIT_SHA"
+      - name: The job failed
+        if: ${{ failure() }}
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: echo "$COMMIT_SHA"
