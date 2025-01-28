@@ -14,6 +14,11 @@ jobs:
   notify:
     runs-on: ubuntu-20.04
     steps:
+      - name: output SHA
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: echo "$COMMIT_SHA"
+
       - name: The job succeeded
         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
         if: ${{ success() }}
@@ -21,9 +26,6 @@ jobs:
           severity: info
           details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        env:
-          COMMIT_SHA: ${{ github.sha }}
-        run: echo "$COMMIT_SHA"
       - name: The job failed
         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
         if: ${{ failure() }}
@@ -31,6 +33,3 @@ jobs:
           severity: error
           details: Test Failed!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        env:
-          COMMIT_SHA: ${{ github.sha }}
-        run: echo "$COMMIT_SHA"
