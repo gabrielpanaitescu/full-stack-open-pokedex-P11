@@ -13,6 +13,7 @@ app.get('/version', (_req, res) => {
 
 app.get('/health', (_req, res) => {
   // eslint-disable-next-line
+  if (true) return res.status(400).send('not ok')
   res.send('ok')
 })
 
