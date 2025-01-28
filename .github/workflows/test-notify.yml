@@ -38,5 +38,6 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           content: 'Deployment failed'
           status: ${{ job.status }}
+          title: 'deploy'
           description: 'commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build'
           username: GitHub Actions
