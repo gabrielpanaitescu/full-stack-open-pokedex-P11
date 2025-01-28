@@ -24,7 +24,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
-          title: '${{ job.status }}: deploy'
+          title: 'Status: ${{ job.status }}'
           content: 'A new version of Pokedex deployed'
           description: |
             by `${{ github.actor }}`
@@ -35,4 +35,9 @@ jobs:
         if: ${{ failure() }}
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          status: ${{ job.status }}
+          title: 'Status: ${{ job.status }}'
+          content: 'A new version of Pokedex deployed'
+          description: |
+            by `${{ github.actor }}`
+            Click [here](https://full-stack-open-pokedex-p11.fly.dev) to visit the deployed app!
+          username: GitHub Actions
