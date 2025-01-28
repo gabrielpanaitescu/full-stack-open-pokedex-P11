@@ -17,8 +17,8 @@ jobs:
       - name: output SHA
         env:
           COMMIT_SHA: ${{ github.sha }}
-        run: echo "$COMMIT_SHA"
-        # run: exit 1
+        # run: echo "$COMMIT_SHA"
+        run: exit 1
       - name: The job succeeded
         uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
         if: ${{ success() }}
