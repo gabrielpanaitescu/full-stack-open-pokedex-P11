@@ -26,7 +26,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
           content: 'A new version of Pokedex deployed'
-          status: ${{ job.status }}
+          title: ${{ job.status }}
           description: |
             by `${{ github.actor }}`
             Click [here](https://full-stack-open-pokedex-p11.fly.dev) to visit the deployed app!
@@ -37,6 +37,6 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           content: 'Deployment failed'
-          title: ${{ job.status }}
+          status: ${{ job.status }}
           description: 'commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build'
           username: GitHub Actions
