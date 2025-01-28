@@ -1,0 +1,44 @@
+name: Health Check
+
+on:
+  push:
+    branches: [main]
+  # schedule:
+  #   - cron: '45 * * * *'
+
+env:
+  SCHEDULE_CHRON: 'Every hour at minute 45.' # update based on cron
+  APP_URL: https://full-stack-open-pokedex-p11.fly.dev
+
+jobs:
+  health_check_deployed_app:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: send health check
+        uses: jtalk/url-health-check-action@b716ccb6645355dd9fcce8002ce460e5474f7f00
+        with:
+          url: ${{ env.APP_URL }}
+      - name: Send discord notification on success
+        uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
+        if: ${{ success() }}
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          nodetail: true
+          content: 'Health Check'
+          title: ${{ job.status }}
+          description: |
+            Interval: ${{ env.SCHEDULE_CHRON }}
+            Visit [website](${{ env.APP_URL }})
+          username: GitHub Actions
+      - name: Send discord notification on failure
+        uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
+        if: ${{ failure() }}
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          nodetail: true
+          content: 'Health Check'
+          title: ${{ job.status }}
+          description: |
+            Interval ${{ env.SCHEDULE_CHRON }}
+            Repository: https://github.com/${{ github.repository }}
+          username: GitHub Actions

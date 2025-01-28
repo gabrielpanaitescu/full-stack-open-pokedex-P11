@@ -10,6 +10,7 @@ on:
 
 env:
   COMMIT_MSG_CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
+  APP_URL: https://full-stack-open-pokedex-p11.fly.dev
 
 jobs:
   set_env_in_job_output:
@@ -64,7 +65,7 @@ jobs:
           title: ${{ job.status }}
           description: |
             by `${{ github.actor }}`
-            Click [here](https://full-stack-open-pokedex-p11.fly.dev) to visit the deployed app!
+            Click [here](${{ env.APP_URL }}) to visit the deployed app!
           username: GitHub Actions
       - name: Send discord notification on failure
         uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
@@ -76,11 +77,6 @@ jobs:
           title: 'deployment pipeline'
           description: 'commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build'
           username: GitHub Actions
-      - name: Health Check
-        uses: jtalk/url-health-check-action@b716ccb6645355dd9fcce8002ce460e5474f7f00
-        with:
-          url: https://full-stack-open-pokedex-p11.fly.dev
-
   tag_release:
     needs: [simple_deployment_pipeline, set_env_in_job_output]
     runs-on: ubuntu-20.04
