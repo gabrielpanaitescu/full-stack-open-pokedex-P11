@@ -26,7 +26,6 @@ jobs:
     runs-on: ubuntu-20.04
     concurrency: deploy-group
     steps:
-      - run: exit 1
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -72,9 +71,9 @@ jobs:
         if: ${{ failure() }}
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          content: 'Deployment failed'
+          content: 'Deployment has failed'
           status: ${{ job.status }}
-          title: 'deploy'
+          title: 'deployment pipeline'
           description: 'commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build'
           username: GitHub Actions
 
