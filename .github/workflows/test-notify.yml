@@ -24,8 +24,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
-          status: ${{ job.status }}
-          title: 'deploy'
+          title: '${{ job.status }}: deploy'
           content: 'A new version of Pokedex deployed'
           description: |
             by `${{ github.actor }}`
