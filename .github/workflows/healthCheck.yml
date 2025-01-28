@@ -1,13 +1,11 @@
 name: Health Check
 
 on:
-  push:
-    branches: [main]
-  # schedule:
-  #   - cron: '17 * * * *'
+  schedule:
+    - cron: '17 * * * *'
 
 env:
-  SCHEDULE_CHRON: 'Every hour at minute 17.' # update based on cron
+  SCHEDULE_CHRON: 'Every hour at minute 17.' # update accordingly to on.schedule.cron
   APP_URL: https://full-stack-open-pokedex-p11.fly.dev
 
 jobs:
@@ -17,7 +15,7 @@ jobs:
       - name: send health check
         uses: jtalk/url-health-check-action@b716ccb6645355dd9fcce8002ce460e5474f7f00
         with:
-          url: '${{ env.APP_URL }}/healthCheckSchedule'
+          url: '${{ env.APP_URL }}'
       - name: Send discord notification on success
         uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
         if: ${{ success() }}

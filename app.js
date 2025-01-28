@@ -16,12 +16,6 @@ app.get('/health', (_req, res) => {
   res.send('ok')
 })
 
-app.get('/healthCheckSchedule', (_req, res) => {
-  // eslint-disable-next-line
-  if (true) return res.status(400).send('not ok!!!')
-  res.send('ok')
-})
-
 app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })

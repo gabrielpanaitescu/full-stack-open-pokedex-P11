@@ -57,7 +57,7 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Send discord notification on success
         uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
-        if: ${{ success() }}
+        if: ${{ success() && needs.set_env_in_job_output.outputs.skip == 'false' }}
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
