@@ -22,7 +22,7 @@ jobs:
         uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
         if: ${{ success() }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: ${{ job.status }}
           content: 'A new version of Pokedex deployed'
           description: |
@@ -32,5 +32,5 @@ jobs:
         uses: sarisia/actions-status-discord@5ddd3b114a98457dd80a39b2f00b6a998cd69008
         if: ${{ failure() }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: ${{ job.status }}
