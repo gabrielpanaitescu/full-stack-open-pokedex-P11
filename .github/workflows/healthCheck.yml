@@ -8,7 +8,7 @@ on:
 
 env:
   SCHEDULE_CHRON: 'Every hour at minute 45.' # update based on cron
-  APP_URL: https://full-stack-open-pokedex-p11.fly.dev
+  APP_URL: https://full-stack-open-pokedex-p11.fly.dev/health
 
 jobs:
   health_check_deployed_app:
