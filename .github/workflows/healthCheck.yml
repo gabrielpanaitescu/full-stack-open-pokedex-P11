@@ -5,7 +5,7 @@ on:
     - cron: '17 * * * *'
 
 env:
-  SCHEDULE_CHRON: 'Every hour at minute 17.' # update accordingly to on.schedule.cron
+  SCHEDULE_CHRON: 'Every hour at minute 17.' #update accordingly to on.schedule.cron
   APP_URL: https://full-stack-open-pokedex-p11.fly.dev
 
 jobs:
