@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - name: Install dependencies
         run: npm install
       - name: Install Playwright Browsers
@@ -61,7 +61,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
-          content: 'A new version of Pokedex deployed'
+          content: "A new version of Pokedex deployed"
           title: ${{ job.status }}
           description: |
             by `${{ github.actor }}`
@@ -72,10 +72,10 @@ jobs:
         if: ${{ failure() }}
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          content: 'Deployment has failed'
+          content: "Deployment has failed"
           status: ${{ job.status }}
-          title: 'deployment pipeline'
-          description: 'commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build'
+          title: "deployment pipeline"
+          description: "commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by `${{ github.actor }}` broke the build"
           username: GitHub Actions
   tag_release:
     needs: [simple_deployment_pipeline, set_env_in_job_output]
